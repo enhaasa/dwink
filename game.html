@@ -1,0 +1,99 @@
+<head>
+    <title>Dwink</title>
+
+    <link rel="icon" type="image/png" href="assets/img/icon/favicon.png"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pattaya&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <meta charset="UTF-8">
+
+    <script src="assets/js/game.js"></script>
+</head>
+
+<body>
+    <!-- Main Wrapper above background-->
+    <main id="container">
+
+        <!-- Version ID-->
+        <div id="game-version-container">
+            <div id="game-version">
+                <span>Version: 1.1.0</span>
+            </div>
+        </div>
+
+        <!-- Top main title -->
+        <div id="game-title-container">
+            <div id="game-title">
+                <h1>Dwink<img src="assets/img/icon/dwink.png"></h1>
+            </div>
+        </div>
+
+        <!-- Credits -->
+        <div id="lobby-nav-container">   
+            <div id="lobby-nav-credits">
+                <span id="author">Made by @Ubbeh</span>
+
+                <span id="author-nav">
+                    <button>Donate</button>
+                    <button>Contact</button>
+                </span>
+            </div>
+            
+            <!-- Lobby-exclusive back button -->
+            <div id="lobby-nav-start">
+                <button id="game-end-button" onclick="location.href='index.html';">End session</button>
+
+            </div>
+        </div>
+
+        <!-- Message showing current player-in-turn -->
+        <div id="message-container">
+            <div= id="message-field"></div>
+        </div>
+
+        <!-- Wrapper for game board and all other relevant elements -->
+        <div id="game-container">
+            <!-- Virtual card with prompts -->
+            <div id="card-container"> 
+                <div id="card-full">
+                    <div id="card-upper"></div>
+                    <div id="card-separator"><span>or</span></div>
+                    <div id="card-lower"></div>
+                </div>
+                <button id="draw-button" onclick="draw()">Draw new card</button>
+            </div>
+
+            <!-- List of currently added players -->
+            <div id="game-player-list-container">
+                <div id="game-player-list">
+                </div>
+
+                <div id="game-player-list-add">
+                    <input id="player-input-field" type="text" value="" maxlength="15" placeholder="Enter a cute name" oninput="setTempPlayer(this.value)">
+                    <button id="player-input-button" onclick="addTempPlayer()">Add player</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- Scripts on page load -->
+    <script>
+        /* Load players array from sessionStorage */
+        getPlayerStorage('players');
+
+        /* Shuffle players array and push into shuffledPlayers array */
+        start();
+
+        const addPlayerButton = document.getElementById('player-input-button');
+        const addPlayerTextField = document.getElementById('player-input-field');
+
+        addPlayerButton.onclick = () => {
+            const name = addPlayerTextField.value;
+
+            addPlayer(name);
+        };
+    </script>
+</body>

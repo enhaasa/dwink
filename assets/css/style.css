@@ -1,0 +1,476 @@
+* {
+    font-family: 'Varela Round', sans-serif;
+    letter-spacing: 1.2px;
+    transition: 0.2s;
+}
+
+/* LOBBY STYLING */
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+html {
+    background: linear-gradient(to bottom right, #A88A9A, #B2B2B2);
+}
+
+body {
+    margin: 0;
+    padding-top: 5vh;
+}
+
+#container {
+    margin: 0 auto;
+    padding: 80px 180px 80px 180px;
+    width: 800px;
+    background-color: rgba(56, 56, 56, 0.75);
+    box-shadow: 0px 6px 22px rgba(0, 0, 0, 0.5);
+}
+
+#game-version-container {
+    display: grid;
+}
+    #game-version {
+        font-size: 10px;
+        color: rgba(197, 197, 197, 0.6);
+    }
+
+#game-title-container {
+    display: grid;
+    justify-items: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom:25px;
+}
+    #game-title {
+        font-size: 42px;
+        color: #FFDF94;
+    }   
+     #game-title h1 {
+        margin: 0 10px 10px 10px;
+        font-family: 'Dancing Script', cursive;
+        letter-spacing: 10px;
+
+        display:grid;
+        grid-auto-flow: column;
+        justify-items: center;
+        align-items: center;
+     }
+     #game-title h1 img {
+        width: 100px;
+        height: 100px;
+        margin: 0;
+        padding: 0 0 0 25px;
+     }
+
+#lobby-nav-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+    #lobby-nav-container #lobby-nav-credits {
+        height: 50px;
+        display: grid;
+        justify-content: start;
+        justify-items: start;
+        align-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        font-size: 14px;
+    }
+        #lobby-nav-credits #author {
+            color: rgba(197, 197, 197, 0.6);
+        }
+        #author-nav button{
+            color: rgba(197, 197, 197, 0.6);
+            border: 1px solid rgba(197, 197, 197, 0.6);
+            border-radius: 25px;
+            padding: 2px 8px 2px 8px;
+        }
+        #author-nav button:hover{
+            opacity: 0.6;
+        }
+
+    #lobby-nav-container #lobby-nav-start{
+        display: grid;
+        justify-items: end;
+    }
+    #lobby-start-button {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        grid-auto-flow: column;
+        grid-gap: 5px;
+        padding: 10px;
+        background: linear-gradient(to bottom right, rgb(250, 169, 230), rgb(134, 149, 238));
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    #lobby-start-button:hover {
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    #lobby-start-button img{
+        width: 30px;
+        height: 30px;
+    }
+
+    #lobby-nav-container #lobby-nav-back {
+        display: grid;
+        justify-items: end;
+    }
+    #lobby-back-button {
+        padding: 10px;
+        background: rgb(173, 93, 93);
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        border-radius: 35px 35px 35px 35px;
+        border: 2px solid rgba(197, 197, 197, 0.6);
+    }
+    #lobby-back-button:hover {
+        background: rgba(173, 93, 93, 0.6);
+        cursor: pointer;
+    }
+
+    #lobby-back-button img{
+        width: 30px;
+        height: 30px;
+    }
+
+#settings-container {
+    display:grid;
+    grid-template-columns: repeat(8, 1fr);
+    
+    margin: 15px 0 15px 0;
+    padding: 10px;
+
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    border: 1px solid rgba(197, 197, 197, 0.6);
+}
+    #settings-option {
+        display: grid;
+        align-items: center;
+        justify-items: center;
+    }
+
+    #settings-option #label {
+        color: white;
+        font-size: 12px;
+        padding: 8px 2px 2px 2px;
+    }
+
+    #settings-option #button {
+        margin: 0;
+        padding: 0;
+    }
+        #settings-option #button button img{
+            width: 40px;
+            height: 40px; 
+        }
+
+#container-title {
+    display:grid;
+    justify-items: center;
+    margin-bottom: -10px;
+}
+
+    #container-title h1{
+        margin: 0;
+        padding: 0;
+        color: rgba(197, 197, 197, 0.6);
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+
+
+#player-list-container {
+    width: 100%;
+}
+    #player-list {
+        margin: 15px 0 15px 0;
+        padding: 10px;
+        min-height: 340px;
+
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 25px;
+        border: 1px solid rgba(197, 197, 197, 0.6);
+
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 5px;
+        align-content: start;
+        justify-content: start;
+    }
+
+    #player-list #player-list-player {
+        background-color:rgb(202, 160, 160, 1);
+        border-radius: 25px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        height: 50px;
+        font-size: 18px;
+        font-weight: bold;
+
+        display: grid;
+        justify-items: center;
+        align-content: center;
+    }
+
+    #player-list #player-list-player:hover > #player-list-player-ctrl{
+        display: grid;
+        justify-items: space-around;
+        align-items: center;
+        grid-auto-flow: column;
+        grid-gap: 55px;
+    }
+
+    #player-list #player-list-player:hover {
+        border: 3px solid rgba(255, 255, 255, 0.4);
+    }
+
+    #player-list #player-list-player:hover > #player-list-player-txt {
+        display: none;
+    }
+
+    #player-list #player-list-player-ctrl {
+        display: none;
+    }
+    #player-list-player-ctrl-option img{
+        width: 35px;
+        height: 35px;
+    }
+
+    #player-input-container #player-input-field {
+        margin-bottom: -2px;
+        width: 100%;
+        padding: 12px;
+        color: rgb(73, 73, 73);
+        
+        font-size: 24px;
+        text-align: center;
+
+        background-color: rgba(255, 255, 255, 0.8);
+        opacity: 0.8;
+        border-radius: 25px 25px 0 0;
+        border: 1px solid rgb(73, 73, 73);
+    }
+    #player-input-container #player-input-field:hover {
+        opacity: 1;
+        outline: none;
+    }
+    #player-input-container #player-input-field:focus {
+        opacity: 1;
+        outline: none;
+    }
+    #player-input-container #player-input-button{
+        width: 100%;
+        padding: 6px;
+        color: rgb(73, 73, 73);
+        background: linear-gradient(to bottom right, rgb(174, 202, 166), rgb(81, 148, 120));
+        font-size: 28px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 0 0 25px 25px;
+        border: 1px solid rgb(73, 73, 73);
+    }
+    #player-input-container #player-input-button:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+    #player-input-container #player-input-button:active {
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    #player-input-warning {
+        color: red;
+        display: grid;
+        align-content: center;
+        justify-content: center;
+    }
+
+/* GAME STYLING */
+#game-end-button {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-auto-flow: column;
+    grid-gap: 5px;
+    padding: 10px;
+    color: rgb(236, 71, 71);
+    border: 1px solid rgb(236, 71, 71);
+    border-radius: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    
+    opacity: 0.7;
+}
+#game-end-button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+#message-container {
+    display: grid;
+    grid-column: 1 / span 8;
+    justify-items: center;
+    font-size: 32px;
+    color: #fff;
+    padding: 15px;
+}
+    #message-container .active {
+        color: rgb(135, 175, 250);
+    }
+
+    #message-field {
+        color: #fff;
+    }
+
+#game-container {
+    margin: 15px 0 15px 0;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+}
+        
+    #card-container {
+       display:grid;
+       grid-column: 1 / span 5;
+       border-radius: 25px;
+       padding: 0;
+      
+       background-color: #fff;
+       text-align: center;
+       font-size: 28px;
+    }
+        #card-full {
+            display: grid;
+            align-items: center;
+            min-height: 500px;
+            padding: 12px;
+        }
+            #card-upper {
+                display: grid;
+                justify-self: center;
+                align-self: center;
+            }
+            #card-separator {
+                    margin-top: 30px;
+                    position: relative;
+                    text-align: center;
+                    text-transform: uppercase;
+                    z-index: 1;
+                    display: block;
+            }
+                #card-separator:before {
+                    border-top: 2px solid #dfdfdf;
+                    content:"";
+                    margin: 0 auto;
+                    position: absolute;
+                    top: 15px; left: 0; right: 0; bottom: 0;
+                    width: 95%;
+                    z-index: -1;
+                }
+            #card-separator span {
+                background: #fff;
+                padding: 0 15px;
+            }
+            #card-lower-half {
+                display: grid;
+                justify-self: center;
+                align-self: center;
+            }
+            #draw-button {
+                background: linear-gradient(to bottom right, rgb(60, 128, 255), rgb(24, 81, 185));
+                border-radius: 0 0 25px 25px;
+                border: 1px solid rgba(197, 197, 197, 0.6);
+                color: rgb(216, 216, 216);
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 20px;
+                padding: 10px;
+                
+                align-self: end;
+            }
+            #draw-button:hover {
+                opacity: 0.8;
+            }
+            #draw-button:active {
+                opacity: 0.6;
+            }
+
+    #game-player-list-container {
+        display: grid;
+        grid-column: 6 / span 3;
+        border: 1px solid rgba(197, 197, 197, 0.6);
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 25px;
+    }
+        #game-player-list {
+            display: grid;
+            align-self: start;
+            justify-items: center;
+            padding-top: 10px;
+            text-decoration: none;
+            list-style-type: none;
+            color: #fff;
+        }
+            #game-player-list .active {
+                opacity: 1.0;
+                font-size: 22px;
+            }
+            #game-player-list .inactive {
+                opacity: 0.5;
+                font-size: 16px;
+            }
+
+            #game-player-list-add {
+                display: grid;
+                align-self: end;
+            }
+                #game-player-list-add #player-input-field {
+                    margin-bottom: -2px;
+                    width: 100%;
+                    padding: 8px;
+                    color: rgb(73, 73, 73);
+                    outline: none;
+                    font-size: 16px;
+                    text-align: center;
+                    background-color: rgba(255, 255, 255, 0.8);
+                    opacity: 0.8;
+                    border: 1px solid rgb(73, 73, 73);
+                }
+                #game-player-list-add #player-input-button{
+                    width: 100%;
+                    padding: 10px;
+                    background: linear-gradient(to bottom right, rgb(174, 202, 166), rgb(81, 148, 120));
+                    font-size: 18px;
+                    color: rgb(73, 73, 73);
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    border-radius: 0 0 25px 25px;
+                    border: 1px solid rgb(73, 73, 73);
+                }
+                #game-player-list-add #player-input-button:hover {
+                    opacity: 0.8;
+                }
+                #game-player-list-add #player-input-button:active {
+                    opacity: 0.6;
+                }
+                #game-player-list-add #player-input-field:hover {
+                    opacity: 1;
+                }
+                
+        

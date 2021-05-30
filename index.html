@@ -1,0 +1,116 @@
+<head>
+    <title>Dwink</title>
+    <link rel="icon" type="image/png" href="assets/img/icon/favicon.png"/>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pattaya&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/lobby.js"></script>
+</head>
+
+<body>
+    <!-- Main Wrapper above background-->
+    <main id="container">
+
+        <!-- Version ID-->
+        <div id="game-version-container">
+            <div id="game-version">
+                <span>Version: 1.1.0</span>
+            </div>
+        </div>
+
+        <!-- Top main title -->
+        <div id="game-title-container">
+            <div id="game-title">
+                <h1>Dwink<img src="assets/img/icon/dwink.png"></h1>
+            </div>
+        </div>
+
+        <!-- Credits -->
+        <div id="lobby-nav-container">
+            
+            <div id="lobby-nav-credits">
+                <span id="author">Made by @Ubbeh</span>
+
+                <span id="author-nav">
+                    <button>Donate</button>
+                    <button>Contact</button>
+                </span>
+            </div>
+            
+            <!-- Lobby-exclusive start button -->
+            <div id="lobby-nav-start">
+                <button id="lobby-start-button" onclick="location.href='game.html';">Dwink</button>
+            </div>
+        </div>
+
+        <!-- Title for major section -->
+        <div id="container-title">
+            <h1>Settings</h1>
+        </div>
+
+        <!-- Pre-game preferences -->
+        <div id="settings-container">
+
+            <div id="settings-option">
+                <div id="button">
+                    <button id="settings-nsfw" onclick="toggleSetting('nsfw')"><img src="assets/img/icon/nsfw.png"></button>
+                </div>
+                <div id="label">
+                    <label>NSFW</label>
+                </div>
+            </div>
+
+            
+            <div id="settings-option">
+                <div id="button">
+                    <button id="settings-shots" onclick="toggleSetting('shots')"><img src="assets/img/icon/shot-glass.png"></button>
+                </div>
+                <div id="label">
+                    <label>Shots</label>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Title for major section -->
+        <div id="container-title">
+            <h1>Players</h1>
+        </div>
+
+        <!-- Grid of each added player -->
+        <div id="player-list-container">
+            <div id="player-list"></div>
+        </div>
+
+        <div id="player-input-container">
+            <span id="player-input-warning"></span>
+            <input id="player-input-field" type="text" value="" maxlength="15" placeholder="Enter a cute name" oninput="setTempPlayer(this.value)">
+            <button id="player-input-button" onclick="addTempPlayer()">Add player</button>
+        </div>
+    </main>
+    
+    <!-- Load settings and current players from sessionStorage on page load -->
+    <script>
+        /* Load settings from sessionStorage and update settings icons accordingly */
+        refreshSettingsIcons();
+
+        /* Load players array from sessionStorage */
+        getPlayerStorage();
+
+        if (sessionStorage.getItem('is_nsfw')) {
+            toggleSetting('nsfw');
+        }
+
+        /* Press ENTER to add player */
+        document.getElementById("player-input-field").addEventListener("keyup", function(event) {
+            event.preventDefault();
+
+            if (event.keyCode === 13) {
+                document.getElementById("player-input-button").click();
+            }
+        });
+    </script>
+</body>
