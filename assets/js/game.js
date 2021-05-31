@@ -135,13 +135,13 @@ const nsfwCards = [
 
 const normalCards = [
     { prompts: ["Give {} two compliments about their appearance", "Take two sips."] },
-    { prompts: ["Say two nice things about {} ", "take two sips."] },
-    { prompts: ["Tell us what you like most about {} ", "take two sips."] },
-    { prompts: ["Tell us what you think about {} ", "take two sips."] },
-    { prompts: ["Tell us what you appreciate about {} ", "take two sips."] },
+    { prompts: ["Say two nice things about {}. ", "Take two sips."] },
+    { prompts: ["Tell us what you like most about {}. ", "Take two sips."] },
+    { prompts: ["Tell us what you think about {}. ", "Take two sips."] },
+    { prompts: ["Tell us what you appreciate about {}. ", "Take two sips."] },
     { prompts: ["Would you be able to keep a spicy secret {} has told you? Have a sip."] },
     { prompts: ["Go on any social media you and {} have in common. Tag them and let everyone know how much you appreciate them with a post. Also, both of you take a sip."] },
-    { prompts: ["Do whatever {} wants you to do ", "take two sips."] },
+    { prompts: ["Do whatever {} wants you to do. ", "Take two sips."] },
     { prompts: ["Go around naming everyones first (real) name. Drink for every person you get wrong."] },
     { prompts: ["You are not allowed to speak English for the next two cards. If you do, you drink."] },
     { prompts: ["Who do you appreciate the most out of this group? Let that person have a sip because they’re awesome."] },
@@ -218,7 +218,7 @@ const normalCards = [
     { prompts: ["Never have I ever watched a horror movie alone."] },
     { prompts: ["The game is in your hands. Come up with a rule that everyone has to follow from now on for the rest of the game. Also, have a sip of your drink."] },
     { prompts: ["Would you rather hire {} or {} as your hitman? Your hitman drinks."] },
-    { prompts: ["Who would you rather rob a bank with, {} or {}? Your new partner in crime drinks with you."] },
+    { prompts: ["Who would you rather rob a bank with {} or {}? Your new partner in crime drinks with you."] },
     { prompts: ["The tallest person present takes two sips!"] },
     { prompts: ["The shortest person present takes two sips!"] },
     { prompts: ["Drink if you’ve got a crush on someone."] },
@@ -318,6 +318,7 @@ const normalCards = [
 const gameCards = [];
 let players = [];
 const settings = {};
+var playerColors = ["FDD6FF", "FFB7CD", "FFB584", "FFE187", "EEFF82", "B8FF82", "93FF9B", "7FFFDD", "89E5FF", "99C3FF", "B2B8FF", "C7B7FF", "F5E8FF", "FFD8EE", "FFEADD", "F8FFE8", "EFFFFA", "E5E8FF", "00EDFF", "00FFBB", "00FF50", "99FF00", "F6FF00", "FFBB00", "FF5C26", "FF4977", "FF5EF4"];
 
 let currentCardIndex = 0;
 let playerInTurn = 0;
@@ -406,14 +407,28 @@ function getRandomPartner(amountOfPartners) {
             var randomNumber = Math.floor(Math.random() * players.length);
 
             /* Cannot return playerInTurn or an already added partner */ 
-            if (randomNumber !== playerInTurn && partners.includes(players[randomNumber]) == false ) {
+            if (randomNumber !== playerInTurn && partners.includes(players[randomNumber].name) == false ) {
                 rollAgain = false;
-                partners.push(players[randomNumber]);
+                partners.push(players[randomNumber].name);
             }
         }
     }
 
     return partners;
+}
+
+/* Return a random color that has not been used yet */
+function getRandomColor() {
+    const randomNumber = Math.floor(Math.random() * playerColors.length);
+
+    return playerColors[randomNumber];
+}
+
+function setRandomColor(playerIndex) {
+    players[playerIndex].color = getRandomColor();
+
+    setPlayerStorage();
+    refreshPlayerList();
 }
 
 /* Update playerlist with current playerInTurn */ 
@@ -426,10 +441,10 @@ function refreshPlayerList() {
 
     for (player in players) {
         if (player == playerInTurn) {
-            playerList.innerHTML += "<li class='active'><b>" + players[player].name + "</b></li>";
+            playerList.innerHTML += "<button onclick='deletePlayer(" + player + ")'> <li class='active' style='color:#" + players[player].color + "'><b>" + players[player].name + "</b></li> </button>";
         }
         else {
-            playerList.innerHTML += "<li class='inactive'>" + players[player].name + "</li>";
+            playerList.innerHTML += "<li class='inactive' style='color:#" + players[player].color + "'>" + players[player].name + "</li>";
         }
     }
 }
@@ -438,13 +453,22 @@ function refreshPlayerList() {
 function refreshMessageText() {
     const messageContainer = document.getElementById('message-field');
 
-    messageContainer.innerHTML = "It's your turn, <b class='active'>" + players[playerInTurn].name + " </b>!";
+    messageContainer.innerHTML = "It's your turn, <b style='color:#" + players[playerInTurn].color + ";'>" + players[playerInTurn].name + " </b>!";
+}
+
+/* Save players array into sessionStorage */
+function setPlayerStorage() {
+    sessionStorage.setItem("players", JSON.stringify(players));
 }
 
 /* Grab players from sessionStorage and push into players array */
-function getPlayerStorage(key) {
-    let storage = JSON.parse(sessionStorage.getItem(key));
-    players = storage;
+function getPlayerStorage() {
+    let storage = JSON.parse(sessionStorage.getItem('players'));
+
+    for (item in storage) {
+        
+        addPlayer(storage[item].color, storage[item].name);
+    }
 }
 
 function isNSFWEnabled() {
@@ -474,8 +498,9 @@ function getNextCard() {
         const partners = getRandomPartner(partnerCount);
 
         while (partnerCount--) {
-            
+
             prompt = prompt.replace('{}', partners[partnerCount]);
+
         }
 
         return prompt;
@@ -510,12 +535,36 @@ function renderCard(prompts) {
     }
 }
 
-function addPlayer(player) {
-    if (!players.includes(player) && player.name != "") {
-        players.push(player);
-    
-    sessionStorage.setItem("players", JSON.stringify(players));
-    
+function addPlayer(playerColor, playerName) {
+    const playerObject = {color: playerColor, name: playerName};
+    players.push(playerObject);
+
     refreshPlayerList();
+}
+
+function addSimplePlayer(playerName) {
+
+    const tempPlayerDuplicate = false;
+
+    if (playerName != "") {
+        for (player in players) {
+            if (players[player].name == playerName) {
+                tempPlayerDuplicate = true;
+            }
+        }
+
+        if (tempPlayerDuplicate == false) {
+            const randomColor = getRandomColor();
+            addPlayer(randomColor, playerName);
+            setPlayerStorage();
+        }
     }
+}
+
+/* Delete a name from players array, then updates storage and playerlist */
+function deletePlayer(playerIndex) {
+    players.splice(playerIndex, 1);
+
+    setPlayerStorage();
+    refreshPlayerList();
 }

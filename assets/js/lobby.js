@@ -30,19 +30,20 @@ function setTempPlayer(tempName) {
 
 /* Checks for duplicate and then pushes name in to players array and clears tempPlayer */
 function addTempPlayer() {
-    var tempPlayerDuplicate = false;
+    const tempPlayerDuplicate = false;
     document.getElementById("player-input-warning").innerHTML = "";
     
     if (tempPlayer != "") {
         for (player in players) {
-            if (players[player] == tempPlayer) {
+            if (players[player].name == tempPlayer) {
                 document.getElementById("player-input-warning").innerHTML = "This player is already added!<br>";
                 tempPlayerDuplicate = true;
             }
         }
 
         if (tempPlayerDuplicate == false) {
-            addPlayer(tempPlayer);
+            const randomColor = getRandomColor();
+            addPlayer(randomColor, tempPlayer);
             setPlayerStorage();
 
             document.getElementById("player-input-field").value = "";
@@ -53,10 +54,8 @@ function addTempPlayer() {
 }
 
 /* Pushes a given name into players array */
-function addPlayer(playerName) {
-
-    const randomColor = getRandomColor();
-    const playerObject = {color: randomColor, name: playerName};
+function addPlayer(playerColor, playerName) {
+    const playerObject = {color: playerColor, name: playerName};
 
     players.push(playerObject);
 
@@ -74,10 +73,16 @@ function deletePlayer(playerIndex) {
 
 /* Return a random color that has not been used yet */
 function getRandomColor() {
-
     const randomNumber = Math.floor(Math.random() * playerColors.length);
 
     return playerColors[randomNumber];
+}
+
+function setRandomColor(playerIndex) {
+    players[playerIndex].color = getRandomColor();
+
+    setPlayerStorage();
+    refreshPlayerList();
 }
 
 /* Updates player-list with current players */
@@ -86,8 +91,8 @@ function refreshPlayerList() {
 
     for (player in players) {
         
-        document.getElementById("player-list").innerHTML += "<button id='player-list-player'>" + "<span id='player-list-player-txt'>" + players[player].name + 
-        "</span> <span id='player-list-player-ctrl'> <a id='player-list-player-ctrl-option' href='javscript:void(0);'> <img src='assets/img/icon/color-circle.png'> </a>" +
+        document.getElementById("player-list").innerHTML += "<button id='player-list-player' style='background:#" + players[player].color +"'>" + "<span id='player-list-player-txt'>" + players[player].name + 
+        "</span> <span id='player-list-player-ctrl'> <a id='player-list-player-ctrl-option' onclick='setRandomColor(" + player + ")'> <img src='assets/img/icon/color-circle.png'> </a>" +
         "<a id='player-list-player-ctrl-option' onclick='deletePlayer(" + player + ")'" + ";'> <img src='assets/img/icon/remove.png'> </a> </span>" + "</button>";
     }
 }
@@ -117,14 +122,15 @@ function setPlayerStorage() {
     sessionStorage.setItem("players", JSON.stringify(players));
 }
 
-/* Load players from sessionStorage and push them into players array*/
+/* Load players from sessionStorage and push them into players array */
 function getPlayerStorage() {
     let storage = JSON.parse(sessionStorage.getItem('players'));
     
     for (item in storage) {
-        addPlayer(storage[item]);
+        addPlayer(storage[item].color, storage[item].name);
     }
 }
+
 
 /* Save a key and value into sessionStorage */
 function setStorage(key, value) {
