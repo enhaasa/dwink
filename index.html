@@ -5,6 +5,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pattaya&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
+    
 
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/lobby.js"></script>
@@ -17,7 +20,7 @@
         <!-- Version ID-->
         <div id="game-version-container">
             <div id="game-version">
-                <span>Version: 1.1.0</span>
+                <span>Version: 1.2.2</span>
             </div>
         </div>
 
@@ -30,7 +33,8 @@
 
         <!-- Credits -->
         <div id="lobby-nav-container">
-            
+
+            <!--
             <div id="lobby-nav-credits">
                 <span id="author">Made by @Ubbeh</span>
 
@@ -39,40 +43,46 @@
                     <button>Contact</button>
                 </span>
             </div>
-            
-            <!-- Lobby-exclusive start button -->
-            <div id="lobby-nav-start">
-                <button id="lobby-start-button" onclick="location.href='game.html';">Dwink</button>
+            -->
+
+            <div id="settings-option">
+                <div id="label">
+                    <label>NSFW:</label>
+                </div>
+                <div id="button">
+                    <button id="settings-nsfw" onclick="toggleSetting('nsfw')"><img id="settings-nsfw-icon" src="assets/img/icon/switch-on.png"></button>
+                </div>
             </div>
         </div>
 
         <!-- Title for major section -->
         <div id="container-title">
-            <h1>Settings</h1>
+            <h1>How to Play</h1> <button id="howto-expand-button" onclick="toggleHowToState()">+</button>
         </div>
 
         <!-- Pre-game preferences -->
-        <div id="settings-container">
+        <div id="howto-container">
 
-            <div id="settings-option">
-                <div id="button">
-                    <button id="settings-nsfw" onclick="toggleSetting('nsfw')"><img src="assets/img/icon/nsfw.png"></button>
-                </div>
-                <div id="label">
-                    <label>NSFW</label>
-                </div>
+            <div id="howto-content">
+                <p>The game requires a minimum of <b style="color: white;">four players</b> to start and is best experienced with atleast ten players. The more players the better.</p>
+                <ul>
+                    <li>
+                        Begin by entering the names of each participant in the field below.
+                    </li>
+                    <li>
+                        When all players have been added press the "DWINK" button below the player list.
+                    </li>
+                    <li>
+                        A new page will appear with a card on the left side of the screen. The card will contain a random prompt or question for the current player in turn.
+                    </li>
+                    <li>
+                        When the prompt or question has been completed, press "DRAW NEW CARD" underneath the card.
+                    </li>
+                    <li>
+                        A textfield above the card will say whom is the current player in turn. The turn advances to the next person after a card has been completed.
+                    </li>
+                </ul>
             </div>
-
-            
-            <div id="settings-option">
-                <div id="button">
-                    <button id="settings-shots" onclick="toggleSetting('shots')"><img src="assets/img/icon/shot-glass.png"></button>
-                </div>
-                <div id="label">
-                    <label>Shots</label>
-                </div>
-            </div>
-            
         </div>
         
         <!-- Title for major section -->
@@ -90,19 +100,25 @@
             <input id="player-input-field" type="text" value="" maxlength="15" placeholder="Enter a cute name" oninput="setTempPlayer(this.value)">
             <button id="player-input-button" onclick="addTempPlayer()">Add player</button>
         </div>
+
+        <!-- Lobby-exclusive start button -->
+        <div id="lobby-nav-start">
+            <button id="lobby-start-button" onclick="start();">Dwink</button>
+        </div>
     </main>
     
     <!-- Load settings and current players from sessionStorage on page load -->
     <script>
-        /* Load settings from sessionStorage and update settings icons accordingly */
-        refreshSettingsIcons();
-
+        
         /* Load players array from sessionStorage */
         getPlayerStorage();
 
         if (sessionStorage.getItem('is_nsfw')) {
             toggleSetting('nsfw');
         }
+
+        /* Load settings from sessionStorage and update settings icons accordingly */
+        refreshSettingsIcons();
 
         /* Press ENTER to add player */
         document.getElementById("player-input-field").addEventListener("keyup", function(event) {

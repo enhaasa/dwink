@@ -4,9 +4,20 @@
 
 var players = [];
 var playerColors = ["FDD6FF", "FFB7CD", "FFB584", "FFE187", "EEFF82", "B8FF82", "93FF9B", "7FFFDD", "89E5FF", "99C3FF", "B2B8FF", "C7B7FF", "F5E8FF", "FFD8EE", "FFEADD", "F8FFE8", "EFFFFA", "E5E8FF", "00EDFF", "00FFBB", "00FF50", "99FF00", "F6FF00", "FFBB00", "FF5C26", "FF4977", "FF5EF4"];
-var settings = {nsfw: false, shots: false};
+var settings = {nsfw: false};
+var howToState = true;
 var tempPlayer = "";
 var playerInputWarning = "";
+
+function start() {
+    if (players.length >= 4) {
+        window.location.href="game.html";
+    }
+
+    else {
+        alert(4 - players.length + " more player(s) needed!");
+    }
+}
 
 /* Toggle settings depending on former state */
 function toggleSetting(setting) {
@@ -21,6 +32,24 @@ function toggleSetting(setting) {
 
     /* Update the settings container with new states */
     refreshSettingsIcons();
+}
+
+function toggleHowToState (){
+    const howToContent = document.getElementById("howto-content");
+    const howToButton = document.getElementById("howto-expand-button");
+
+    if (howToState == false) {
+        howToContent.style.display = "none";
+        howToButton.innerHTML = "+";
+
+        howToState = true;
+    }
+
+    else if (howToState == true) {
+        howToContent.style.display = "grid";
+        howToButton.innerHTML = "-";
+        howToState = false;
+    }
 }
 
 /* Writing into the "Add player" field will add it as a tempPlayer (on input) */
@@ -99,22 +128,15 @@ function refreshPlayerList() {
 
 /* Styles settings icons depending on current state */
 function refreshSettingsIcons() {
-    let nsfwIcon = document.getElementById("settings-nsfw");
-    let shotsIcon = document.getElementById("settings-shots");
+    let nsfwIcon = document.getElementById("settings-nsfw-icon");
 
     if (settings.nsfw == true) {
-        nsfwIcon.style.opacity = 1.0;
+        nsfwIcon.src = "assets/img/icon/switch-on.png"
     }    
     else if (settings.nsfw == false) {
-        nsfwIcon.style.opacity = 0.2;
+        nsfwIcon.src = "assets/img/icon/switch-off.png"
     } 
 
-    if (settings.shots == true) {
-        shotsIcon.style.opacity = 1.0;
-    }
-    else if (settings.shots == false) {
-        shotsIcon.style.opacity = 0.2;
-    } 
 }
 
 /* Save players array into sessionStorage */

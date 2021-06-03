@@ -15,21 +15,36 @@ button, input[type="submit"], input[type="reset"] {
 	outline: inherit;
 }
 
-html {
-    background: linear-gradient(to bottom right, #A88A9A, #B2B2B2);
-}
-
 body {
+    /*background: linear-gradient(to bottom right, #A88A9A, #B2B2B2);*/
+    background: #bba2af;
     margin: 0;
-    padding-top: 5vh;
 }
 
 #container {
-    margin: 0 auto;
-    padding: 80px 180px 80px 180px;
+    margin: 5vh auto;
     width: 800px;
+    padding: 80px 180px 80px 180px;
     background-color: rgba(56, 56, 56, 0.75);
     box-shadow: 0px 6px 22px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 1200px) {
+    #container {
+        margin: 0 auto;
+        width: auto;
+    }
+}
+@media screen and (max-width: 1000px) {
+    #container {
+        margin: 0 auto;
+        width: auto;
+        padding: 80px 15px 0 15px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    body {
+        background-color: #595356;
+    }
 }
 
 #game-version-container {
@@ -52,7 +67,7 @@ body {
     }   
      #game-title h1 {
         margin: 0 10px 10px 10px;
-        font-family: 'Dancing Script', cursive;
+        font-family: 'Amatic SC', cursive;
         letter-spacing: 10px;
 
         display:grid;
@@ -70,6 +85,7 @@ body {
 #lobby-nav-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding-bottom: 25px;
 }
     #lobby-nav-container #lobby-nav-credits {
         height: 50px;
@@ -94,32 +110,35 @@ body {
             opacity: 0.6;
         }
 
-    #lobby-nav-container #lobby-nav-start{
-        display: grid;
-        justify-items: end;
-    }
-    #lobby-start-button {
-        display: grid;
-        justify-items: center;
-        align-items: center;
-        grid-auto-flow: column;
-        grid-gap: 5px;
-        padding: 10px;
-        background: linear-gradient(to bottom right, rgb(250, 169, 230), rgb(134, 149, 238));
-        color: white;
-        font-size: 20px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    #lobby-start-button:hover {
-        opacity: 0.5;
-        cursor: pointer;
-    }
+    #lobby-nav-start{
+        padding: 15px;
 
-    #lobby-start-button img{
-        width: 30px;
-        height: 30px;
+        display: grid;
+        justify-content: center;
     }
+        #lobby-start-button {
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            padding: 14px 32px;
+            
+            color: rgb(216, 216, 216);
+            background-color: rgb(216, 216, 216, 0.2);
+            border: 2px solid rgb(216, 216, 216);
+            border-radius: 25px;
+
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        #lobby-start-button:hover {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        #lobby-start-button img{
+            width: 30px;
+            height: 30px;
+        }
 
     #lobby-nav-container #lobby-nav-back {
         display: grid;
@@ -146,35 +165,36 @@ body {
         height: 30px;
     }
 
-#settings-container {
-    display:grid;
-    grid-template-columns: repeat(8, 1fr);
-    
+#howto-container {
     margin: 15px 0 15px 0;
-    padding: 10px;
+    padding: 5px 15px;
 
+    font-size: 18px;
+    color: rgb(216, 216, 216);
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 25px;
     border: 1px solid rgba(197, 197, 197, 0.6);
 }
-    #settings-option {
-        display: grid;
-        align-items: center;
-        justify-items: center;
-    }
+#howto-content {
+    display: none;
+}
 
+#settings-option {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+}
     #settings-option #label {
-        color: white;
-        font-size: 12px;
-        padding: 8px 2px 2px 2px;
+        color: rgba(197, 197, 197, 0.6);
+        font-size: 22px;
+        text-transform: uppercase;
+        padding: 8px 0px 0px 2px;
     }
-
     #settings-option #button {
         margin: 0;
         padding: 0;
     }
         #settings-option #button button img{
-            width: 40px;
             height: 40px; 
         }
 
@@ -182,14 +202,28 @@ body {
     display:grid;
     justify-items: center;
     margin-bottom: -10px;
+
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: center;
+    grid-gap: 8px;
 }
 
     #container-title h1{
         margin: 0;
         padding: 0;
-        color: rgba(197, 197, 197, 0.6);
+        color: rgb(216, 216, 216);
         font-size: 22px;
         text-transform: uppercase;
+    }
+
+    #howto-expand-button {
+        color: white;
+        font-size: 32px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0 10px;
+        border-radius: 50%;
     }
 
 
@@ -197,12 +231,12 @@ body {
     width: 100%;
 }
     #player-list {
-        margin: 15px 0 15px 0;
+        margin: 15px 0 -1px 0;
         padding: 10px;
         min-height: 340px;
 
         background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 25px;
+        border-radius: 25px 25px 0 0;
         border: 1px solid rgba(197, 197, 197, 0.6);
 
         display:grid;
@@ -251,7 +285,7 @@ body {
     }
 
     #player-input-container #player-input-field {
-        margin-bottom: -2px;
+        margin-bottom: -1px;
         width: 100%;
         padding: 12px;
         color: rgb(73, 73, 73);
@@ -261,8 +295,8 @@ body {
 
         background-color: rgba(255, 255, 255, 0.8);
         opacity: 0.8;
-        border-radius: 25px 25px 0 0;
-        border: 1px solid rgb(73, 73, 73);
+        
+        border: 1px solid rgba(197, 197, 197, 0.6);
     }
     #player-input-container #player-input-field:hover {
         opacity: 1;
@@ -281,7 +315,7 @@ body {
         font-weight: bold;
         text-transform: uppercase;
         border-radius: 0 0 25px 25px;
-        border: 1px solid rgb(73, 73, 73);
+        border: 1px solid rgba(197, 197, 197, 0.6);
     }
     #player-input-container #player-input-button:hover {
         opacity: 0.7;
@@ -471,6 +505,10 @@ body {
                 }
                 #game-player-list-add #player-input-field:hover {
                     opacity: 1;
+                }
+
+                .game-player-list-player:hover {
+                    text-decoration: line-through;
                 }
                 
         

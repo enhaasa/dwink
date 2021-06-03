@@ -252,7 +252,7 @@ const normalCards = [
     { prompts: ["Everyone with blue eyes takes two sips."] },
     { prompts: ["Everyone drinks for every sibling they have."] },
     { prompts: ["You have to whisper for the next five cards. Drink whenever you don’t."] },
-    { prompts: ["Pretend you’re proposing to {}", "take five sips."] },
+    { prompts: ["Pretend you’re proposing to {}.", "Take five sips."] },
     { prompts: ["You’re {}’s pet for the next five cards. Listen to your owner."] },
     { prompts: ["The first person to burp right now hands out ten sips to everyone else."] },
     { prompts: ["Get everyone else in the group to laugh. Don’t stop laughing until someone else gets it. Everyone that laughed has to drink. If no one laughs you have to take three sips of your drink."] },
@@ -441,10 +441,10 @@ function refreshPlayerList() {
 
     for (player in players) {
         if (player == playerInTurn) {
-            playerList.innerHTML += "<button onclick='deletePlayer(" + player + ")'> <li class='active' style='color:#" + players[player].color + "'><b>" + players[player].name + "</b></li> </button>";
+            playerList.innerHTML += "<button class='game-player-list-player' onclick='deletePlayer(" + player + ")'> <li class='active' style='color:#" + players[player].color + "'><b>" + players[player].name + "</b></li> </button>";
         }
         else {
-            playerList.innerHTML += "<li class='inactive' style='color:#" + players[player].color + "'>" + players[player].name + "</li>";
+            playerList.innerHTML += "<button class='game-player-list-player' onclick='deletePlayer(" + player + ")'> <li class='inactive' style='color:#" + players[player].color + "'><b>" + players[player].name + "</b></li> </button>";
         }
     }
 }
@@ -459,6 +459,11 @@ function refreshMessageText() {
 /* Save players array into sessionStorage */
 function setPlayerStorage() {
     sessionStorage.setItem("players", JSON.stringify(players));
+}
+
+/* Load a key and value from sessionStorage */
+function getStorage(key) {
+    sessionStorage.getItem(key);
 }
 
 /* Grab players from sessionStorage and push into players array */
@@ -563,8 +568,13 @@ function addSimplePlayer(playerName) {
 
 /* Delete a name from players array, then updates storage and playerlist */
 function deletePlayer(playerIndex) {
-    players.splice(playerIndex, 1);
+    if (players.length > 4) {
+        players.splice(playerIndex, 1);
 
-    setPlayerStorage();
-    refreshPlayerList();
+        setPlayerStorage();
+        refreshPlayerList();
+    }
+    else {
+        window.alert("Cannot delete! Too few players to continue session if this player is deleted.");
+    }
 }
